@@ -1,23 +1,40 @@
-import logo from './logo.svg';
+import axios from 'axios';
+import {useEffect, useState} from 'react';
 import './App.css';
-
+import Header from './components/Header';
+import Main from './components/Main';
 function App() {
+
+  //useSates
+
+  const [input,setInput] = useState('');
+  const [meals,setMeal] = useState([]);
+
+
+
+
+  //Functions
+  const takeApi = async () => {
+    const response = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php'
+      );
+    // console.log(response);
+    if(response.status === 200) {
+      // console.log('app api work');
+    }
+  }
+
+  //Use Effects
+  useEffect(() => {
+    takeApi();
+  },[])
+
+
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header/>
+      <Main input={input} setInput={setInput} meals={meals} setMeal={setMeal}/>
     </div>
   );
 }
